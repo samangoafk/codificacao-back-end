@@ -1,8 +1,10 @@
-# AULA 08 ROUTER HANDLES E METÓDOS GET E POST
+# AULA 08/09 - MÉTODOS GET, POST, PUT, PATCH E DELETE 
 
+Este projeto foi desenvolvido durante a Aula 08 do curso para praticar a criação de API Routes utilizando a convenção de Route Handlers. O foco principal foi a implementação e manipulação das requisições HTTP do tipo GET e POST. E posteriormente adicionamos os métodos: DELETE, PUT e PATCH.
 
-Este projeto foi desenvolvido durante a Aula 08 do curso para praticar a criação de API Routes utilizando a convenção de Route Handlers. O foco principal foi a implementação e manipulação das requisições HTTP do tipo GET e POST.
-
+- Adiciona endpoints GET, POST, PATCH e DELETE no ConvidadosController
+- Implementa metodos de busca, criacao, edicao e remocao no ConvidadosService
+- Corrige inconsistencias de IDs e parametros de rota
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
