@@ -7,7 +7,7 @@ export class ConvidadosService{
         {id: 2, nome:'Enzo', idade: 19},
         {id: 3, nome:'Jamily', idade: 20},
         {id: 4, nome:'Alessandra', idade: 18},
-        {id: 2, nome:'Hudson', idade: 21},
+        {id: 5, nome:'Hudson', idade: 21},
     ];
     findAll(){
         return this.convidados;
