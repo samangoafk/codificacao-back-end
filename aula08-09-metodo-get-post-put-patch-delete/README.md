@@ -32,19 +32,7 @@ API RESTful desenvolvida em NestJS para gerenciamento de listas de convidados, u
 | **PATCH** | `/convidados/:id` | Atualização pontual da idade do convidado pelo ID | `200 OK` |
 | **DELETE** | `/convidados/:id` | Remoção de um convidado específico pelo ID | `204 No Content` |
 
----
-
-## 📄 Estrutura dos Dados
-
-Exemplo do objeto trafegado na aplicação:
-
-```json
-{
-  "id": 1,
-  "nome": "Alice",
-  "idade": 23
-}
-🚀 Como Executar a Aplicação
+### Como Executar a Aplicação
 1. Instalar as dependências do projeto:
 
 Bash
