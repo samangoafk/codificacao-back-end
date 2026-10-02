@@ -36,6 +36,23 @@ Para validar o funcionamento da validação do middleware, foram testados os seg
 - **Resultado no Console**: `[LOG] Método: GET | Rota: /`
 
 ---
+## 🧪 Testes de Validação
+
+### 🔒 Nova Rota `/segredinho` (Testada via Thunder Client)
+
+A rota `/segredinho` exige o header customizado `api-key-segredinho` com o valor `curioso`.
+
+#### ❌ Cenário 1: Acesso Negado (Sem Header ou Valor Incorreto)
+- **Requisição**: `GET http://localhost:3000/segredinho`
+- **Headers**: Nenhum ou `api-key-segredinho: outro_valor`
+- **Status Esperado**: `403 Forbidden`
+- **Resposta**:
+  ```json
+  {
+    "statusCode": 403,
+    "mensagem": "Acesso Negado: Privilégio de segredinho necessário.",
+    "log": "2026-10-02T19:50:00.000Z"
+  }
 
 ## 🚀 Como Executar o Projeto
 

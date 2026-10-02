@@ -6,7 +6,7 @@ export class AppController {
 @Get()
 getPublic(){
 return {
-  message: 'Rota pública acessada com sucesso!',
+  mensagem: 'Rota pública acessada com sucesso!',
   data: new Date(),
 }
 }  
@@ -15,7 +15,14 @@ getAdmin(){
 return {
   message: 'Bem-vindo ao painel admnistrativo!',
   data: new Date(),
+ }
 }
+@Get('segredinho')
+getSegredinho(){
+return {
+  mensagem: 'Bem-vindo ao nosso segredinho!',
+  data: new Date(),
+ }
 }
   }
 
