@@ -1,118 +1,247 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# API de Colaboradores — NestJS + Zod
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Projeto desenvolvido utilizando Node.js, NestJS, TypeScript, NPM e Zod, com o objetivo de criar uma API para cadastro de colaboradores utilizando validação de dados.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Tecnologias utilizadas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Node.js
+- NestJS
+- TypeScript
+- NPM
+- Zod
 
-## Project setup
+---
 
-```bash
-$ npm install
+## Sobre o projeto
+
+A aplicação possui uma API para cadastro de colaboradores.
+Os dados enviados para a API passam por uma validação utilizando Zod antes de serem processados pelo controller.
+
+O projeto utiliza:
+- Controllers;
+- Services;
+- Modules;
+- Pipes personalizados;
+- Validação com Zod;
+- Tratamento de erros HTTP;
+- Tipagem baseada no schema.
+
+---
+
+## Estrutura do projeto
+
+```text
+aula16-validacao-schemas-com-zod-nestjs/
+├── src/
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   ├── app.service.ts
+│   ├── main.ts
+│   ├── colaborador.controller.ts
+│   ├── colaborador.schema.ts
+│   └── zod-validation.pipe.ts
+├── package.json
+└── README.md
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## Funcionamento
 
-# watch mode
-$ npm run start:dev
+A aplicação possui uma rota para criação de colaboradores:
 
-# production mode
-$ npm run start:prod
+`POST /colaboradores`
+
+O endpoint utiliza o `ZodValidationPipe` para validar os dados recebidos no corpo da requisição.
+
+### 👤 Cadastro de colaborador
+
+Para cadastrar um colaborador, envie uma requisição `POST /colaboradores` com um JSON semelhante a:
+
+```json
+{
+  "nome": "João da Silva",
+  "email": "joao@email.com",
+  "idade": 25,
+  "departamento": "TI"
+}
 ```
 
-## Run tests
+Se os dados forem válidos, a API retorna:
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```json
+{
+  "message": "Colaborador criado com sucesso!",
+  "colaborador": {
+    "nome": "João da Silva",
+    "email": "joao@email.com",
+    "idade": 25,
+    "departamento": "TI"
+  }
+}
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## ✅ Validações
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+O schema utiliza o Zod para validar os campos do colaborador.
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+* **Nome**
+  * O nome deve possuir no mínimo 3 caracteres.
+  * *Mensagem:* `"O nome deve conter no mínimo 3 letras!"`
+
+* **E-mail**
+  * O e-mail precisa possuir um formato válido.
+  * *Mensagem:* `"O email é inválido!"`
+
+* **Idade**
+  * Ser um número;
+  * Ser maior ou igual a 18 anos;
+  * Ser menor ou igual a 65 anos.
+  * *Mensagens
+  * **Departamento**
+  * O departamento deve ser uma das opções: `TI`, `RH` ou `Financeiro`.
+  * Caso seja informado outro departamento, a validação será rejeitada.
+
+---
+
+## 🛡️ ZodValidationPipe
+
+O projeto possui um pipe personalizado chamado `ZodValidationPipe`.
+
+Ele recebe um schema Zod e realiza a validação do body da requisição. Caso os dados sejam inválidos, o pipe gera uma resposta HTTP 400.
+
+Os erros são organizados informando:
+
+```json
+{
+  "statusCode": 400,
+  "erros": [
+    {
+      "campo": "nome",
+      "mensagem": "O nome deve conter no mínimo 3 letras!"
+    }
+  ]
+}
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### ❌ Exemplo de requisição inválida
 
-## Observability
+```json
+{
+  "nome": "Jo",
+  "email": "email-invalido",
+  "idade": 16,
+  "departamento": "Marketing"
+}
+```
 
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
+Nesse caso, a API rejeitará a requisição devido às regras definidas no schema.
 
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
+---
 
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
+## 🔎 Tipagem
 
-This project is already instrumented. Create a free account at [observe.nestjs.com](https://observe.nestjs.com), add an application, and paste the generated app key and secret into the `ObserveModule.forRoot()` call in `src/app.module.ts`.
+O tipo `Colaborador` é criado automaticamente a partir do schema utilizando:
 
-The free plan needs no payment details and covers 300,000 events a month. You can also browse the [live demo](https://www.observe-demo.nestjs.com/dashboard) first - the whole dashboard over a busy service's data, with nothing to install.
+```typescript
+z.infer<typeof colaboradorSchema>
+```
 
-## Resources
+Isso permite manter a validação e a tipagem dos dados baseadas na mesma estrutura.
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observe](https://observe.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## 📦 AppModule
 
-## Support
+O `AppModule` registra:
+- `AppController`
+- `ColaboradoresController`
+- `AppService`
+- `ZodValidationPipe`
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+## 💻 Instalação
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+1. Clone o repositório:
+```bash
+git clone URL_DO_SEU_REPOSITORIO
+```
 
-## License
+2. Entre na pasta:
+```bash
+cd nome-do-projeto
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+3. Instale as dependências:
+```bash
+npm install
+```
+
+---
+
+## ▶️ Executando o projeto
+
+Para iniciar a aplicação em modo de desenvolvimento:
+
+```bash
+npm run start:dev
+```
+
+A aplicação utiliza a variável de ambiente `PORT`. Caso ela não esteja definida, o servidor será iniciado na porta 3000 por padrão: `http://localhost:3000`
+
+---
+
+## 🧪 Testando com Insomnia
+
+Você pode utilizar o Insomnia para testar o endpoint.
+
+**Criar colaborador:**
+- **Rota:** `POST http://localhost:3000/colaboradores`
+- **Headers:** `Content-Type: application/json`
+- **Body:**
+```json
+{
+  "nome": "Maria Silva",
+  "email": "maria@email.com",
+  "idade": 30,
+  "departamento": "RH"
+}
+```
+
+**Teste de erro:**
+```json
+{
+  "nome": "Ma",
+  "email": "email",
+  "idade": 15,
+  "departamento": "Marketing"
+}
+```
+A API deverá retornar `400 Bad Request` com os erros encontrados durante a validação.
+
+---
+
+## 📌 Objetivos do projeto
+
+Este projeto foi desenvolvido para praticar:
+- Criação de APIs REST com NestJS;
+- Controllers;
+- Services;
+- Modules;
+- Pipes personalizados;
+- Validação com Zod;
+- Tipagem com TypeScript;
+- Tratamento de exceções;
+- Status HTTP;
+- Validação de dados recebidos em requisições.
+
+---
+
+## 👨‍💻 Autor
+
+Projeto desenvolvido para estudos e prática de desenvolvimento backend com Node.js, NestJS e Zod.
