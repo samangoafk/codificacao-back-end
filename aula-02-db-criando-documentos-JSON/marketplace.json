@@ -1,0 +1,93 @@
+{
+  "idCliente": "prod_001",
+  "nomeCliente": "Paulo Briff Carter Dado",
+  "emailCliente": "paulobriffkdinho@gmail.com",
+  "enderecoCliente": {
+    "rua": "Rua Jacinto D' Leite",
+    "numero": "765",
+    "bairro": "Jardim Felicidade",
+    "cidade": "Macapá",
+    "estado": "Amapá",
+    "cep": "689090030"
+  },
+  "formasPagamento": [
+    {
+      "idPagamento": "pag_01",
+      "tipo": "Cartão de Crédito",
+      "ultimosDigitos": "4321",
+      "titular": "Paulo B C Dado"
+    },
+    {
+      "idPagamento": "pag_02",
+      "tipo": "Pix",
+      "chave": "paulobriffkdinho@gmail.com"
+    }
+  ],
+  "preferencias": ["Eletrônicos", "Acessórios", "Informática"],
+  "comprasAnteriores": [
+    {
+      "pedidoId": "ped_9001",
+      "data": "2026-02-15T10:30:00Z",
+      "valorTotal": 185.50
+    }
+  ],
+  "listaDesejos": [
+    "prod_5001",
+    "prod_5002"
+  ],
+
+  "idLoja": "vend_2001",
+  "nomeLoja": "TechGlobal Store",
+  "contato": {
+  "telefone": "+5596991234567",
+  "email": "suporte@techglobal.com"
+  },
+  "localizacao": {
+    "pais": "China",
+    "cidade": "Shenzhen"
+  },
+  "avaliacoes": {
+    "mediaNota": 4.8,
+    "totalAvaliacoes": 1420
+  },
+  "numeroProdutosVendidos": 15800,
+  "produtosDisponiveis": [
+    "prod_5001",
+    "prod_5002"
+  ],
+  "produtosNaoDisponiveis": [
+    "prod_5003"
+  ],
+
+  "idProduto": "prod_5001",
+  "nomeProduto": "Fone de Ouvido Bluetooth TWS",
+  "imagemProduto": "https://fone.jpg",
+  "descricao": "Fone sem fio com cancelamento de ruído e bateria de longa duração.",
+  "especificacoes": {
+    "cor": "Preto",
+    "conectividade": "Bluetooth 5.3",
+    "bateria": "500mAh"
+  },
+  "anunciosVendedores": [
+    {
+      "vendedorId": "vend_2001",
+      "preco": 120.00,
+      "tempoEnvioEstimadoDias": 3,
+      "dataEntregaEstimada": "2026-11-05"
+    },
+    {
+      "vendedorId": "vend_2002",
+      "preco": 115.50,
+      "tempoEnvioEstimadoDias": 5,
+      "dataEntregaEstimada": "2026-11-08"
+    }
+  ],
+  "avaliacoesCompradores": [
+    {
+      "usuarioId": "usr_1001",
+      "nota": 5,
+      "comentario": "Excelente fone, chegou bem rápido em Macapá."
+    }
+  ]
+
+}
