@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreateAlunoDto } from "./dto/create.aluno.dto.js";
@@ -15,18 +15,34 @@ export class AlunoService {
     }
     async findAll(): Promise<Aluno[]>{
         return this.alunoModel.find().exec();
-    } //! get
+    } //!get
 
-    async findOne(id:string): Promise <Aluno | null>{
-         return this.alunoModel.findById(id).exec();
-    } //! get
+    async findOne(id:string): Promise <Aluno>{
+         const aluno = await this.alunoModel.findById(id).exec();
 
-    async Update(id: string, uptadeAlunoDto: UpdateAlunoDto): Promise<Aluno| null>{
-         return this.alunoModel.findByIdAndUpdate(id, UpdateAlunoDto).exec();
-        } //! patch
+         if(!aluno){
+            throw new NotFoundException(`Aluno com id ${id} não encontrado.`)
+         }
 
-    async remove(id:string):Promise<Aluno | null>{
-        return this.alunoModel.findByIdAndDelete(id).exec();
+         return aluno;
+    } //!get
+
+    async update(id: string, uptadeAlunoDto: UpdateAlunoDto): Promise<Aluno >{
+         const alunoAtualizado = await this.alunoModel.findByIdAndUpdate(id, uptadeAlunoDto).exec();
+         if(!alunoAtualizado){
+
+            throw new NotFoundException(`Aluno com id ${id} não encontrado.`)
+         }
+         return alunoAtualizado;
+
+        } //!patch
+
+    async remove(id:string):Promise<Aluno>{
+        const alunoRemovido = await this.alunoModel.findByIdAndDelete(id).exec();
+                if(!alunoRemovido){
+                     throw new NotFoundException(`Aluno com Id ${id} não encontrado.`)
+                } return alunoRemovido;
+       
     } //! delete
     //! crud
 }
