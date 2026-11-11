@@ -1,25 +1,27 @@
-import { IsString, 
+import { 
+    IsString, 
     IsNotEmpty, 
     IsInt, 
     IsArray,
     Min,
     ArrayMinSize
- } from "class-validator";
- import { ApiProperty } from "@nestjs/swagger";
+} from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateAlunoDto {
     @ApiProperty({
         example: 'João da Silva',
-        description:'Nome completo do aluno',
+        description: 'Nome completo do aluno',
     })
     @IsString()
     @IsNotEmpty({
         message: 'O Nome do Aluno é obrigatório e não pode ser vazio'
     })
     nome: string;
-     @ApiProperty({
+
+    @ApiProperty({
         example: 25,
-        description:'Idade do aluno',
+        description: 'Idade do aluno',
     })
     @IsInt({
         message: 'A Idade deve ser um número inteiro.'
@@ -30,26 +32,26 @@ export class CreateAlunoDto {
     idade: number;
 
     @ApiProperty({
-        example: ['Ciência da Computação', 'Recursos Humanos'],
-        description:'Cursos em que o aluno está matriculado'
-    })
-       @ApiProperty({
-        example: 1234,
-        description:'Mátricula do Aluno',
+        example: '1234',
+        description: 'Matrícula do Aluno',
     })
     @IsString()
     @IsNotEmpty({
-        message: 'O Matricula é obrigatória e não pode ser vazia.'
+        message: 'A Matrícula é obrigatória e não pode ser vazia.'
     })
     matricula: string;
 
+    @ApiProperty({
+        example: ['Ciência da Computação', 'Recursos Humanos'],
+        description: 'Cursos em que o aluno está matriculado',
+    })
     @IsArray()
     @IsString({
-        each:true,
+        each: true,
         message: 'Cada Curso deve ter um Nome.'
     })
-        @ArrayMinSize(1,{
-            message: 'O aluno deve estar matriculado em pelo menos um curso.'
-        })
+    @ArrayMinSize(1, {
+        message: 'O aluno deve estar matriculado em pelo menos um curso.'
+    })
     cursos: string[];
 }

@@ -76,9 +76,29 @@ export class AlunosController {
         type: Number,
         description:'Itens por página(padrão: 10)'
     })
-    findallPage(@Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number){
-        return this.alunoService.findAllPage(page, limit);
+    @ApiQuery({
+        name: 'nome',
+        required: false,
+        type: String,
+        description: 'FILTRA ALUNOS PELO NOME',
+
+    })
+     @ApiQuery({
+        name: 'curso',
+        required: false,
+        type: String,
+        description: 'Filtra alunos pelo curso',
+
+    })
+
+    findallPage(
+        @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+        @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+        @Query('nome',) nome?:string,
+        @Query('curso',) curso?:string,
+    )  
+        {
+        return this.alunoService.findAllPage(page, limit, nome, curso);
     }
     @Get(':id')
     @ApiOperation({
