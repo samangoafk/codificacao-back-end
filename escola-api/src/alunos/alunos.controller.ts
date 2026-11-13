@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, DefaultValueP
 import { AlunoService } from "./alunos.service.js";
 import { CreateAlunoDto } from "./dto/create.aluno.dto.js";
 import { UpdateAlunoDto } from "./dto/update-aluno.js";
-import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from "@nestjs/swagger";
+import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiAcceptedResponse } from "@nestjs/swagger";
 
 @ApiTags('alunos')
 @Controller('alunos')
@@ -181,5 +181,24 @@ export class AlunosController {
 
     remove(@Param('id') id: string){
         return this.alunoService.remove(id);
+    }
+    @Patch(':id/restaurar')
+    @ApiOperation({
+        summary: 'Restaura um aluno que foi removido por (soft delete)'
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Aluno restaurado com sucesso',
+    })
+     @ApiResponse({
+        status: 404,
+        description: 'Aluno não foi encontrado',
+    })
+     @ApiResponse({
+        status: 500,
+        description: 'Erro Interno no Servidor',
+    })
+    restore( @Param('id') id: string){
+       return this.alunoService.restore(id);
     }
 }
